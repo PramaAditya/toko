@@ -1,0 +1,377 @@
+---
+layout: page
+---
+
+<script>
+  var value;
+  {% if page.harga-avg %}
+  value={{page.harga-avg}};
+  {% else %}
+  value={{page.harga}}
+  {% endif %}  
+  fbq('track', 'ViewContent', {
+    content_ids: '{{page.title}}',
+    value: value,
+    currency: 'IDR',
+  });
+</script>
+{% assign product-slug = page.title | slugify %}
+{% assign col-size = 'col-'%}
+<script>
+  var url = "https://api.whatsapp.com/send?phone={{site.phone}}&text=Halo saya mau beli %0a";  
+  var page_nama = '{{page.nama}}';
+  var page_slug = '{{page.title | slugify}}' ;
+
+  {% if page.variations %}
+    var variations = {{page.variations | jsonify}} ;
+  {% endif %}
+  var normal_price = '{{page.harga}}';
+  // console.log(variations);
+</script>
+<!-- Modal Start -->
+<div class="modal fade" id="cartSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLongTitle"><strong class="delete-name"></strong> berhasil ditambahkan ke keranjang belanja</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="added-product" class="p-0 modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-block  btn-outline-primary" data-dismiss="modal">Kembali Berbelanja</button>
+                <a href="cart.html" class="btn btn-block m-0 btn-primary"><span class="fa fa-shopping-bag"></span> Lihat Keranjang</a>
+            </div>
+            {% if page.xsell %}
+            <div id="recommendations" class='container p-2'>
+              <div class="background"></div>
+              <div class="row">
+              <div class="col-12"><h6 class="content-5 text-center">BELI JUGA</h6></div>
+              {% for title in page.xsell %}
+              {% assign products = site.products | where:"title",title %}
+              {% for product in products %}
+                <div class="mx-auto mb-2 product-list col-6">
+                  
+                    <a href="{{product.title | slugify}}.html">
+                      <div class="box">
+                        {% if product.img-source == 'google'%}
+                        <div class="square" data-bg="{{product.images[0]}}" style="background-image: url('{{product.images[0]}}');"></div>
+                        {% else if%}
+                        <div class="square" style="background-image: url('assets/products/img/{{product.title | slugify}}/1.jpg')"></div>
+                        {% endif %}
+                        <h6 class="product-name mb-1 mt-2">{{product.nama}}</h6>
+                        <p class="product-price">Rp {{product.harga | thousands_separated:"."}}
+                        </p>
+                      </div> 
+                    </a>
+                  
+                </div>
+                {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- Modal Delete Confirmations -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Konfirmasi Hapus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah anda yakin mau menghapus <strong class="delete-name"></strong> dari keranjang?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button id="delete-button" data-cesta-feira-delete-item="" type="button" class="btn btn-danger">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="assets/basicLightbox.min.js"></script>
+<form class="form" data-cesta-feira-form>
+    <div class="p-0 pt-4 pb-md-5" id="product-detail-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 p-0" style="" id="product-visual">
+                    <!-- Image Sliders Start -->
+                    {% if page.img-source == 'google'%}
+                    {% include image-slider-google.html %}
+                    {% else%}
+                    {% include image-slider.html %}
+                    {% endif %}
+                    <!-- Image Sliders End -->
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="row mx-0">
+                        <div class="product-block col-12 px-3 pt-0 pb-2" id="product-header" style="">
+                            <h4 class="m-0" id="product-name">
+                                {{page.nama}}
+                            </h4>
+                            <h5 class="m-0 d-inline-block" id="product-price" price="{{page.harga}}">Rp {{page.harga | thousands_separated:"."}}</h5>
+                            {% if page.harga-before %}
+                            <span class="before d-inline-block">Rp {{page.harga-before | thousands_separated:"."}}</span>
+                            {% endif %}
+                            {% if page.badge %}
+                            <span class="badge">{{page.badge}}</span>
+                            {% endif %}
+                        </div>
+                        <!-- Ukuran Dropdown Start -->
+                        {% if page.ukuran %}
+                        {% if page.warna %}
+                        <div class="product-block p-3 col-6" id="product-size" style="">
+                            {% else %}
+                            <div class="product-block p-3 col-12" id="product-size" style="">
+                                {% endif %}
+                                <h6 class="text-uppercase m-0 mb-2">Ukuran<br></h6>
+                                <select class="form-control" id="ukuran" name="ukuran" data-cesta-feira-attribute required>
+                                    {% if page.ukuran.size > 1%}
+                                    <option selected="true" disabled="disabled" value="">- Pilih Ukuran -</option>
+                                    {% endif %}
+                                    {% for pilihan in page.ukuran%}
+                                    <option value="{{pilihan}}">{{pilihan}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                            <!-- Ukuran Dropdown End -->
+                            <!-- Warna Dropdown Start -->
+                            {% if page.warna %}
+                            {% if page.ukuran %}
+                            <div class="product-block p-3 col-6" id="product-color">
+                                {% else %}
+                                <div class="product-block p-3 col-12" id="product-color">
+                                    {% endif %}
+                                    <h6 class="text-uppercase m-0 mb-2">Warna<br></h6>
+                                    <select class="form-control" id="warna" name="warna" data-cesta-feira-attribute required>
+                                        {% if page.warna.size > 1%}
+                                        <option selected="true" disabled="disabled" value="">- Pilih Warna -</option>
+                                        {% endif %}
+                                        {% for pilihan in page.warna%}
+                                        <option value="{{pilihan}}">{{pilihan}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% endif %}
+                                <!-- Warna Dropdown End -->
+                                <!-- Kuantitas Start -->
+                                <div class="product-block pt-3 pb-0 px-3 col-12" id="product-qty" style="">
+                                    <h6 class="text-uppercase m-0 mb-2">Jumlah<br></h6>
+                                    <div id="counter" class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-dark minus" type="button">-</button>
+                                        </div>
+                                        <input id="quantity" type="number" class="count form-control" value="1" name="quantity" data-cesta-feira-attribute>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-dark plus" type="button">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Kuantitas End -->
+
+                                <div class="col-12 px-2 py-2 px-lg-3 border-top px-sm-0 d-block product-buttons" id="product-button">
+                                    <div class="row m-0 p-0">
+                                        <!-- <div class="col-12 col-sm-5 mb-2 m-sm-0 px-0 pr-sm-1">
+                                            <button id="buy_button" type="submit" class="btn btn-success btn-block shadow-none py-1 py-sm-2 px-1" />
+                                            <i class="fa fa-fw fa-shopping-bag mr-1 fa-lg"></i><span class="d-block d-md-inline">Tambah ke Keranjang</span></button>
+                                        </div>
+                                        <div class="col-12 col-sm-7 px-0 pl-sm-1">
+                                            <button type="button" class="btn btn-primary btn-block shadow-none py-1 py-sm-2 px-1" id="buy_button_wa"><i class="fa fa-fw fa-whatsapp mr-1 fa-lg"></i><span class="d-block d-md-inline">Beli Sekarang (via chat <strong>WhatsApp</strong>)</span></button>
+                                        </div> -->
+                                        <div class="col-6 p-0 pr-1">
+                                            <button id="buy_button" type="submit" class="btn btn-success btn-block shadow-none py-1 py-sm-2 px-2">
+                                                <i class="fa fa-fw fa-lg fa-shopping-bag"></i>
+                                                <span>Tambah ke Keranjang</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6 p-0 pl-1">
+                                            <button type="button" class="buy_button_wa btn btn-primary btn-block shadow-none py-1 py-sm-2 px-1" id="buy_button_wa">
+                                                <i class="fa fa-fw fa-lg fa-whatsapp"></i>
+                                                <span>Beli Sekarang<br><small>lewat <strong>WhatsApp</strong></small></span>
+                                            </button>
+                                            <!-- Modal -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Short Description Start-->
+                                {% if page.description %}
+                                <div class="product-block col-12 p-3 border-top" id="product-excerpt" style="">
+                                    {{page.description | markdownify}}
+                                </div>
+                                {% endif %}
+                                <!-- Short Description End-->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Long Description Start -->
+                    <div class="row">
+                        <div class="pt-md-3 px-0 mb-5 mb-md-0 col-12" id="product-desc-tab" style="">
+                            <div class="container px-0">
+                              <ul class="nav nav-tabs">
+                                <li><a  class="active" href="#tabDescription" data-toggle="tab">Deksripsi Produk</a></li>
+                                {% ifhascontent size-guide %}
+                                <li><a href="#tabSize" data-toggle="tab">Tabel Ukuran</a></li>  
+                                {% endifhascontent %}
+                                {% ifhascontent how-to %}
+                                <li><a href="#tabHow" data-toggle="tab">Cara Penggunaan</a></li>
+                                {% endifhascontent %}
+                                <li><a href="#tabShipping" data-toggle="tab">Pengiriman</a></li>
+                                <li><a href="#tabReturn" data-toggle="tab">Garansi 7 Hari</a></li>
+                              </ul>
+
+                              <div class="tab-content">
+                                {% ifhascontent size-guide %}
+                                <div class="tab-pane" id="tabSize">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent=".tab-pane" href="#collapseSize">
+                                          <i class="icon-arrow fa fa-times"></i>Tabel Ukuran
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseSize" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        {% contentblock size-guide %}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {% endifhascontent %}
+                                <div class="tab-pane active" id="tabDescription">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent=".tab-pane" href="#collapseDescription">
+                                          <i class="icon-arrow fa fa-times"></i>Deskripsi Produk
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseDescription" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        {{content}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {% ifhascontent how-to %}
+                                <div class="tab-pane" id="tabHow">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent=".tab-pane" href="#collapseHow">
+                                          <i class="icon-arrow fa fa-times"></i>Cara Penggunaan
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseHow" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        {% contentblock how-to %}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {% endifhascontent %}
+                                <div class="tab-pane" id="tabShipping">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent=".tab-pane" href="#collapseShipping">
+                                          <i class="icon-arrow fa fa-times"></i>Kebijakan Pengiriman
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseShipping" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        {% capture shipping %}{% include shipping-policy.md %}{% endcapture %}
+                                        {{ shipping | markdownify }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane" id="tabReturn">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent=".tab-pane" href="#collapseReturn">
+                                          <i class="icon-arrow fa fa-times"></i>Garansi Uang Kembali 7 Hari
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseReturn" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        {% capture return %}{% include return-policy.md %}{% endcapture %}
+                                        {{ return | markdownify }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+            <!-- Long Description Start -->
+                <!-- Mobile Buy Button Start -->
+                <div class="col-12 d-lg-none product-buttons" id="product-button-mobile">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 p-2 px-sm-3 d-flex">
+                            <span class="content-5 d-flex flex-column flex-grow-1 pr-1 justify-content-center">
+                                <strong class="text-uppercase">{{page.nama}}</strong>
+                                <small><span id="ukuran-label"></span><span id="ukuran-label"></span></small>
+                            </span>
+                            <span class="content-3 d-flex flex-column align-items-end justify-content-center">
+                                {% if page.harga-before %}
+                                <small class="before" style="line-height: 10px;">Rp&nbsp;{{page.harga-before | thousands_separated:"."}}</small>
+                                {% endif %}
+                                <strong>
+                                    <span id="quantity-label">1</span>&nbsp;x&nbsp;<span id="harga-label">Rp&nbsp;{{page.harga | thousands_separated:"."}}</span>
+                                </strong>
+                            </span>
+                        </div>
+                        <div class="col-6 p-1 pl-2 pb-2">
+                            <!-- <button id="buy_button" type="submit" class="btn btn-success btn-block shadow-none py-1 py-sm-2 px-1" /><i class="fa fa-fw fa-shopping-bag mr-1 fa-lg"></i><span class="d-block d-lg-inline">Tambah ke Keranjang</span></button> -->
+                            <button id="buy_button" type="submit" class="btn btn-success btn-block shadow-none py-1 py-sm-2 px-2">
+                                <i class="fa fa-fw fa-lg fa-shopping-bag"></i>
+                                <span>Tambah ke Keranjang</span>
+                            </button>
+                        </div>
+                        <div class="col-6 p-1 pr-2 pb-2">
+                            <!-- <input id="buy_button_wa" type="submit" class="btn btn-primary btn-block btn-lg shadow-none py-2" value="Beli Sekarang" /> -->
+                            <button type="button" class="buy_button_wa btn btn-primary btn-block shadow-none py-1 py-sm-2 px-1" id="buy_button_wa">
+                                <i class="fa fa-fw fa-lg fa-whatsapp"></i>
+                                <span>Beli Sekarang
+                                    <br><small>lewat <strong>WhatsApp</strong></small>
+                                </span>
+                            </button>
+                            <!-- Modal -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile Buy Button End -->
+            </div>
+            
+        </div>
+        <input type="hidden" data-cesta-feira-attribute value="{{page.nama}}" name="product_name">
+        <input type="hidden" data-cesta-feira-attribute value="{{page.title | slugify}}" name="product_slug">
+        <input type="hidden" data-cesta-feira-attribute value="{{page.harga}}" name="unit_price" id="product-price-hidden">
+        <input type="hidden" data-cesta-feira-item-id value="{{page.title | slugify}}" name="product_id" id="product-id" />
+</form>
+<script src="assets/product-detail.js" type="text/javascript"></script>

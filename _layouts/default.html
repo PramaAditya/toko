@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html style="font-size: 120%">
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- PAGE settings -->
+    <!-- <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico"> -->
+    <!-- <title>Album</title> -->
+    <!-- <meta name="description" content="Wireframe design of an album page by Pingendo"> -->
+    <!-- <meta name="keywords" content="Pingendo bootstrap example template wireframe album "> -->
+    <!-- <meta name="author" content="Pingendo"> -->
+    {% seo %}
+    <meta property="og:image" content="{{page.images[0] | default:'https://lh3.googleusercontent.com/MFlOJL0MH0oRjzPviMu7o0aSUrd-CP6urLU_vD81Q4G2Y3X70ZeYVm18SqrEkjc646gJEXZYXzffJcuIaeKarxfxdL1B3eP53CtYldrn0Q8vzUMB5EIpGM7o2104OCPx52UXrcTxSf8cH65_WRxUHxDJlOUV2HwpJAIso00qJcDIOGWgYd8Ff0LQlyUgGfHNX7bhtRZwV09hD1b0pzKsZM8Cv_NGmCWRPuYVtxrgK4PH1F8YCmPiN0XwgjlOZs5P4TApFtkzyNUXt13D8FJZIJ41xHi7UnaJ1WgX-T1WpP_kEEes4yTASvjSq3Fl0zu7z1MjNHc6yZVnWXrxSLGeTZhpFh7J1jpiBJBEDkN_6pP8uLmgf7ZtJsXC_mhEwH4KH6RB1BgfwwlPx8T1RN85GV9fYCuwPP3UbOAm89DXzZkSi3lhW37CcjYptw84uGC0TKoIGQtduDn4lG0PMtHsN8K6f7BBYPENeZmSBmfPIWxprM2ZwpWCeY-sJ8DUDZJ4On6o-PaEbDn-5Ivouwd8ruAGwXiwZlj54fK_MJr-1u0b0iQorWK7uqvTF4jIAhvesOnCfAiII6JSCaIMj_tKJVgHGxkeRQxezA56XKI-dMFcWBWE-nbaBvnY4V8oyrQPoZn0fkh8PdTvr0dRzq6D-5eCmYSxNSHF=w800'}}" />
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="wireframe.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" href="assets/basicLightbox.min.css">
+    {% include pixel.html %}
+    
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {{content}}
+    {% include scripts.html %}
+    {% include mouseflow.html %}
+</body>
+
+</html>

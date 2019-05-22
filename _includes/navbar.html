@@ -1,0 +1,23 @@
+<nav class="navbar bg-light navbar-dark shadow-sm sticky-top {{include.nav-class}}">
+    <div class="container">
+        <a class="navbar-brand m-0 p-0" href="index.html">
+            <img src="assets/img/logo.png" height="50" alt="logo">
+        </a>
+        <ul class="navbar-nav">
+            <span class="navbar-text">
+                <a id="nav-cart" class="nav-link cart-item-count" href="cart.html" data-cesta-feira-items-count><span class="fa fa-lg fa-shopping-bag"></span>
+                    <span class="d-none d-sm-inline">Keranjang Belanja</span>
+                </a>
+            </span>
+        </ul>
+    </div>
+</nav>
+
+{% if site.banner_text != '' %}
+<!-- <div class="d-lg-none alert alert-dark alert-dismissible fade show alert-banner row m-0" role="alert">
+  <span class="col-11">{{site.banner_text | markdownify}}</span>
+  <button type="button" class="close col-1" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+{% endif %}

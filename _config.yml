@@ -1,0 +1,79 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Bebel Store
+email: admin@bebel.store
+phone : "6281388143225"
+description: >- # this means to ignore newlines until "baseurl:"
+ Sering travelling? Pakaian penuh sampai koper gak bisa ditutup? Atau isi lemari terlalu penuh dengan bedcover, bantal?  
+   
+ VacBag GO! membuat penyimpanan pakaian maupun bed cover lebih mudah, **hemat tempat hingga 75%**. Penyimpanan barang jadi lebih banyak!  
+ 
+ Cocok dibawa travelling, menambah ruang koper anda. Tumpukan pakaian bisa dikompres jadi kecil sehingga anda bisa mengisi koper anda dengan barang belanjaan.  
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://babel.store" # the base hostname & protocol for your site, e.g. http://example.com
+product_img_url: "products/img"
+product_vid_url: "products/vid"
+twitter_username: jekyllrb
+github_username:  jekyll
+
+banner_text: "**Gratis Ongkir** min. pembelian Rp 90rb"
+pixel_id: "158848707793254"
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-seo-tag
+
+sass:
+    load_paths:
+        - _sass
+        - node_modules
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+collections:
+  products:
+    output: true  
+    permalink: /:name
+
+defaults:
+  - scope:
+      path: ""
+      type: "products"
+    values:
+      layout: product
+      video: false
+      img-source: local
+      feature: false
+      # ukuran: false
+      # warna: false
+      # upsell: false
+      # recommendations: false
+      # tags: false
+      # categories: false
+
+lazy_load_image:
+  src_attr_name: data-src # [required] You need to specify the attributes to be saved for lazy loading

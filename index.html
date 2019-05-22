@@ -1,0 +1,19 @@
+---
+layout: page
+title: Home
+---
+{% include hero.html %}
+<div id="product-lists" class="pb-5 pt-4">
+    <div class="container">
+        <div class="row">
+            {% include product-block.html title="Paket 8 Manual" col='col-12 col-sm-4 border-bottom' feature='true' %}
+            {% include product-block.html title="Paket 3 Manual" col='col-6 col-sm-4 border-bottom' feature='true' %}
+            {% include product-block.html title="Paket 3 Elektrik" col='col-6 col-sm-4 border-bottom' feature='true' %}
+        </div>
+        <div class="row">    
+            {% include product-block.html title="Vacuum Bag" %}
+            {% include product-block.html title="Pompa Manual" %}
+            {% include product-block.html title="Pompa Elektrik" %}
+        </div>
+    </div>
+</div>

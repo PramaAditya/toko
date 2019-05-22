@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<div class="d-block text-center">
+Purchased. Please wait
+</div>
+
+<script>
+	$(document).ready(function() {
+		var url = $.jStorage.get('waURL');
+        window.location.href = url;
+	});
+</script>

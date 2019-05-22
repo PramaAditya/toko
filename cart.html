@@ -1,0 +1,66 @@
+---
+layout: cart
+---
+<script>
+    var url = "https://api.whatsapp.com/send?phone={{site.phone}}&text=Halo saya mau beli %0a";
+</script>
+<!-- Modal Delete Confirmations -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Konfirmasi Hapus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah anda yakin mau menghapus <strong id="delete-name"></strong> dari keranjang?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button id="delete-button" data-cesta-feira-delete-item="" type="button" class="btn btn-danger">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
+
+<div class="row mt-2">
+    <div class="col-12 col-lg-8 p-0 pl-lg-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row px-1 px-lg-3">
+                        <div id="cart-items" class="col-12">
+                            <div id ="cart-empty" class="text-center">
+                                <img src="assets/img/empty_cart.png" alt="" class="img-fluid" width="500">
+                                <p class="content-4 mt-2">Keranjang anda kosong</p>
+                                <a href="index.html" class="btn btn-primary">Mulai Berbelanja</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 p-0 pr-lg-5">
+        <div id="cart-checkout-mobile" class='container-fluid p-0'>
+            <div class="row m-0 p-0">
+                <div class="col-12 p-2 px-sm-3 d-flex">
+                    <span class="text-uppercase content-2 d-flex flex-column flex-grow-1 pr-1 justify-content-center">
+                            <span class="font-weight-bold mb-0">Total Harga</span><small>(sebelum ongkos kirim)</small>
+                    </span>
+                    <span id="total-value" class="content-5 d-flex flex-column align-self-center" data-total-value="">
+                        Rp&nbsp;0
+                    </span>
+                </div>
+                <div class="col-12 px-2 pb-2">
+                    <button type="submit" class="btn btn-primary btn-block shadow-none py-1 py-sm-2 px-1" id="buy-button-wa"><i class="fa fa-fw fa-whatsapp mr-1 fa-lg"></i><span>Beli Sekarang</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+<script src="assets/cart-page.js"></script>

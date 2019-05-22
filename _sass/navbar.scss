@@ -1,0 +1,69 @@
+.navbar{
+  @extend .p-1;
+}
+
+.navbar-back{
+  .nav-text, .nav-link{
+    color:black!important;
+  }
+  #nav-back{
+    position: absolute!important;
+    top: 0px!important;
+  }
+  #nav-header{
+    @extend .d-block;
+    @extend .mx-auto;
+    text-align: center!important;
+    @extend h5;
+    margin-bottom: 0!important;
+  }
+}
+
+
+.navbar-back{
+  .nav-text, .nav-link{
+    color:black!important;
+  }
+  #nav-back{
+    position: absolute!important;
+    top: 0px!important;
+  }
+  #nav-header{
+    @extend .d-block;
+    @extend .mx-auto;
+    text-align: center!important;
+    @extend h5;
+    margin-bottom: 0!important;
+  }
+}
+
+.nav-tabs {
+  .active {
+    background-color: white!important;
+    border-bottom-color: white!important;
+  }
+}
+
+.cesta-feira__num-items {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: green;
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    top: -2px;
+    right: -12px;
+    font-size: 12px;
+    font-weight: bold;
+    @extend .content-4;
+}
+
+#nav-cart {
+    color: black;
+    span:not(.fa) {
+      @extend .content-5;
+    }
+}

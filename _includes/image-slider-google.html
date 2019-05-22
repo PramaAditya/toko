@@ -1,0 +1,92 @@
+<!-- <script>
+{% for image in page.images%}
+  console.log('{{image}}');
+{% endfor %}
+</script> -->
+<script>
+    $( document ).ready(function() {
+    
+    $('#productCarouselMobile').slick({
+        arrows: false,
+        dots: true,
+    });
+
+    $('#productCarouselMobile .rectangle').on('click',function(){
+        var image = $(this).attr('data-image');
+        console.log(image);    
+        const lightboxMobileCarousel = basicLightbox.create("<img src='"+image+"'>");
+
+        lightboxMobileCarousel.show();
+    }); 
+    });
+   // 
+</script>
+<input type="hidden" value="{{page.images[0]}}" name="image_url" data-cesta-feira-attribute>
+    <div class="row">
+        <div class="m-0 p-0 d-none d-lg-block col-1" style="">
+            <!-- Desktop Products Indicator Start -->
+            {% assign data-slide-to = 0 %}
+            {% for image in page.images %}
+            <div class="square product-thumbnail shadow-sm border border-secondary" style="background-image: url('{{image}}=w100')" data-slide-to="{{data-slide-to}}" data-target="#productCarousel"></div>
+            {% assign data-slide-to = data-slide-to | plus:1 %}
+            {% endfor %}
+            <!-- Desktop Products Indicator End -->
+            {% if page.video %}
+            <a class="square btn btn-block btn-lg shadow-sm btn-light border-secondary border p-2" href="javascript:;" id="product-video-button" data-slide-to="{{data-slide-to}}" data-target="#productCarousel">
+                <i class="fa fa-fw fa-1x py-1 fa-play"></i>
+                <span class="d-block text-center">VIDEO</span>
+            </a>
+            {% endif %}
+        </div>
+        <div class="d-none d-lg-block col-11" style="">
+            <div id="productCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner ">
+                    <!-- Desktop Products Carousel Start -->
+                    {% assign carousel-number = 0 %}
+                    {% for image in page.images %}
+                    <div class="easyzoom carousel-item
+                        
+                        {% if carousel-number == 0 %}
+                          active
+                        {% endif%}
+                    ">
+                        <a href="{{image}}=w1200">
+                        <img src="{{image}}=w520" alt="" class="d-block img-fluid" />
+                        </a>
+                    </div>
+                    {% assign carousel-number = carousel-number | plus:1 %}
+                    {% endfor %}
+                    <!-- Desktop Products Carousel End -->
+                    {% if page.video %}
+                    <div class="carousel-item carousel-video">
+
+                            <iframe src="{{page.video}}" allow="autoplay" allowfullscreen width="560" height="315" frameborder="0"></iframe>
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div id="carouselMobileContainer"class="d-block d-lg-none col-12 m-0 p-0">
+                <!-- Mobile Products Carousel Start -->
+                <div id="productCarouselMobile" class="d-block mx-auto">
+                
+                {% for image in page.images %}
+                <div class="rectangle" data-image='{{image}}' style="background-image: url('{{image}}')"></div>
+                {% endfor %}
+               
+                
+                </div>
+                 <!-- Mobile Products Carousel End -->
+        </div>
+        {% if page.video %}
+        <script>
+            const lightboxVideo = basicLightbox.create('<iframe src="{{page.video}}" width="560" height="315" allow="autoplay" allowfullscreen frameborder="0"></iframe>');
+        </script>
+
+        <div class="product-block col-12 d-lg-none p-0">
+            <button type='button' class="btn btn-block border-bottom btn-light py-2" id="mobile-video-button" onclick="lightboxVideo.show()"><i class="fa fa-play fa-fw"></i>&nbsp;VIDEO </button>
+        </div>
+        {% endif %}
+    </div>
+

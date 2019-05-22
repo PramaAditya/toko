@@ -1,0 +1,210 @@
+---
+layout: default
+---
+{% assign product-slug = page.title|slugify%}
+{% assign img-url = 'products/img' %}
+{% assign vid-url = 'products/vid' %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  <div class="p-0 pt-4 pb-5" id="product-detail-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 p-0" style="" id="product-visual">
+          <div class="row">
+            <div class="m-0 p-0 d-none d-lg-block col-1" style="">
+              
+
+              <!-- Desktop Products Indicator Start -->
+              {% assign data-slide-to = 0 %}
+
+              {% for image in site.static_files %}
+                {% if image.path contains img-url %}
+                      {% if image.path contains product-slug%}
+                  <div class="square product-thumbnail shadow-sm border border-secondary" style="background-image: url('{{ site.baseurl }}{{ image.path }}')" data-slide-to="{{data-slide-to}}" data-target="#productCarousel"></div>
+                  {% assign data-slide-to = data-slide-to | plus:1 %}
+                {% endif %}
+                {% endif %}
+              {% endfor %}
+              <!-- Desktop Products Indicator End -->
+              
+              {% if page.video %}
+              <a class="square btn btn-block btn-lg shadow-sm btn-light border-secondary border p-2" href="javascript:;" id="product-video-button" data-slide-to="{{data-slide-to}}" data-target="#productCarousel">
+                <i class="fa fa-fw fa-1x py-1 fa-play"></i>
+                <span class="d-block text-center">VIDEO</span>
+              </a>
+              {% endif %}
+              
+            </div>
+            <div class="d-none d-lg-block col-11" style="">
+              <div id="productCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                  <!-- Desktop Products Carousel Start -->
+                  {% assign carousel-number = 0 %}
+                  {% for image in site.static_files %}
+                    {% if image.path contains img-url %}
+                      {% if image.path contains product-slug%}
+                      <div class="carousel-item 
+                      
+                      {% if carousel-number == 0 %}
+                      active
+                      {% endif%}
+
+                      ">                
+                        <img src="{{ site.baseurl }}{{ image.path }}" alt="" class="d-block img-fluid w-100" />
+                      </div>
+                      {% assign carousel-number = carousel-number | plus:1 %}
+                    {% endif %}  
+                    {% endif %}
+                  {% endfor %}
+                  <!-- Desktop Products Carousel End -->
+                  
+                  {% if page.video %}
+                  {% for video in site.static_files %}
+                  {% if video.path contains vid-url %}
+                  {% if video.path contains product-slug %}
+                  <div class="carousel-item">
+                    <div class="embed-responsive embed-responsive-4by3">
+                      <video src="{{ site.baseurl }}{{ video.path }}" class="embed-responsive-item" controls="controls"> Your browser does not support HTML5 video. </video>
+                    </div>
+                  </div>
+                  <script>
+                    const instance = basicLightbox.create(`
+                    <video src="{{ site.baseurl }}{{ video.path }}" controls="controls"> Your browser does not support HTML5 video. </video>
+
+                  `)
+                  </script>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="d-block d-lg-none col-12 m-0 p-0" >
+              <div id="productCarouselMobile" class="d-block mx-auto">
+                <!-- Mobile Products Carousel Start -->
+                {% for image in site.static_files %}
+                    {% if image.path contains img-url %}
+                    {% if image.path contains product-slug%}
+                    <div class="rectangle" style="background-image: url('{{ site.baseurl }}{{ image.path }}')"></div>
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- Mobile Products Carousel End -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+        <form action="" class="form" data-cesta-feira-form>
+          <div class="row">
+            {% if page.video %}
+            <div class="product-block col-12 d-lg-none p-0">
+              <a class="btn btn-block btn-light py-2" id="mobile-video-button" onclick="instance.show()" href="javascript:;"><i class="fa fa-play fa-fw"></i>&nbsp;VIDEO </a>
+            </div>
+            {% endif %}
+            <div class="product-block col-12 px-3 pt-0 pb-2" id="product-header" style="">
+              <h4 class="m-0 mb-2" id="product-name">{{page.nama}}</h4>
+              <h5 class="m-0" id="product-price">{{page.harga}}</h5>
+            </div>
+            {% if page.ukuran %}
+            <div class="product-block p-3 col-6" id="product-size" style="">
+              <h6 class="text-uppercase m-0 mb-2">SIZE<br></h6>
+              <select class="form-control" id="ukuran">
+                <!-- <option value="">- Pilih Ukuran -</option> -->
+                {% for pilihan in page.ukuran%}
+                <option value="{{pilihan}}">{{pilihan}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            {% endif %}
+            {% if page.warna %}
+            <div class="product-block p-3 col-6" id="product-color" style="">
+              <h6 class="text-uppercase m-0 mb-2">COLOR<br></h6>
+              <select class="form-control" id="warna">
+                <!-- <option value="">- Pilih Warna -</option> -->
+                {% for pilihan in page.warna%}
+                <option value="{{pilihan}}">{{pilihan}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            {% endif %}
+            <div class="p-3 order-lg-3 col-12" id="product-sizing" style="">
+              <h5 class="text-uppercase m-0 mb-2" id="product-price">SIZING CHART<br></h5>
+              <div class="table-responsive">
+                <table class="table table-bordered ">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>#</th>
+                      <th>First</th>
+                      <th>Last</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="p-3 order-lg-2 col-12" id="product-desc" style="">
+              <h5 class="text-uppercase m-0 mb-2" id="product-price">Description<br></h5>
+              {{content}}
+            </div>
+            <div class="col-12 order-lg-1 py-2 px-3" style="" id="product-button">
+              <a class="btn btn-primary btn-block btn-lg shadow-none border-0 py-2" href="javascript:;" id="buy_button"><i class="fa fa-fw fa-whatsapp"></i>&nbsp;Beli via Whatsapp </a>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+      $('#productCarouselMobile').slick(
+      {
+        arrows: false,
+        dots: true,
+       
+      }
+      );
+
+      var urlProduk ='%0aProduk: {{page.nama}}';
+      var urlWarna ='';
+      var urlUkuran = '';
+      var urlTotal = '';
+      var url ="https://api.whatsapp.com/send?phone={{site.phone}}&text=Halo saya mau beli %0a";
+  
+      $("#buy_button").on("click",function(e) {
+  
+         var ukuranPilihan = $('#ukuran').children("option:selected").val();
+         var warnaPilihan = $('#warna').children("option:selected").val();
+  
+         {% if page.warna %}
+         urlWarna = '%0aWarna: '+warnaPilihan;
+         {% endif %} 
+
+         {% if page.ukuran %}
+         urlUkuran ='%0aUkuran: '+ukuranPilihan;
+         {% endif %}
+
+         window.location.href = url+urlProduk+urlWarna+urlUkuran+urlTotal;
+      });
+  });
+  </script>
+

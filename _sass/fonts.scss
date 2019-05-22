@@ -1,0 +1,148 @@
+@font-face {
+    font-family: 'Rabbid';
+    src: url('assets/fonts/rabbidhighwaysignii-webfont.woff2') format('woff2'),
+        url('assets/fonts/rabbidhighwaysignii-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_bold_italic-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_bold_italic-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_bold-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_extra_bold-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_extra_bold-webfont.woff') format('woff');
+    font-weight: bolder;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_light-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_medium_italic-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_medium_italic-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_medium-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_medium-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_italic-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'AkziendGroteskBe';
+    src: url('assets/fonts/AG/berthold_akzidenz_grotesk_be_regular-webfont.woff2') format('woff2'),
+        url('assets/fonts/AG/berthold_akzidenz_grotesk_be_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+.header-1 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 28px!important;
+    font-style: normal!important;
+    font-weight: 400;
+    letter-spacing: normal!important;
+    //line-height: 30.8px!important;
+    text-transform: none;
+    color: #333333;
+}
+
+.content-1 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 14px;
+    font-style: normal!important;
+    font-weight: 400;
+    letter-spacing: normal!important;
+    //line-height: 20px!important;
+    text-transform: none;
+    color: #000000;
+}
+
+.content-2 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 14px;
+    font-style: normal!important;
+    font-weight: 400;
+    letter-spacing: normal!important;
+    //line-height: 36px;
+    text-transform: none;
+    color: #000000;
+}
+
+.content-3 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 11px;
+    font-style: normal!important;
+    font-weight: 300;
+    letter-spacing: 1px!important;
+    //line-height: 15.7143px;
+    text-transform: none;
+    color: #757575;
+}
+
+.content-4 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 13px;
+    font-style: normal!important;
+    font-weight: 300;
+    letter-spacing: normal!important;
+    //line-height: 22px;
+    text-transform: none;
+    color: #000000;
+}
+
+.content-5 {
+    font-family: AkziendGroteskBe, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-size: 11px;
+    font-style: normal!important;
+    font-weight: 400;
+    letter-spacing: 0.85px!important;
+    //line-height: 15.7143px;
+    text-transform: uppercase;
+    //color: #000000;
+}

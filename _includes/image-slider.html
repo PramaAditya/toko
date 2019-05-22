@@ -1,0 +1,86 @@
+<input type="hidden" value="assets/products/img/{{page.title|slugify}}/1.jpg" name="image_url" data-cesta-feira-attribute>
+    <div class="row">
+        <div class="m-0 p-0 d-none d-lg-block col-1" style="">
+            <!-- Desktop Products Indicator Start -->
+            {% assign data-slide-to = 0 %}
+            {% for image in site.static_files %}
+            {% if image.path contains site.product_img_url %}
+            {% if image.path contains product-slug%}
+            <div class="square product-thumbnail shadow-sm border border-secondary" style="background-image: url('{{ site.baseurl }}{{ image.path }}')" data-slide-to="{{data-slide-to}}" data-target="#productCarousel"></div>
+            {% assign data-slide-to = data-slide-to | plus:1 %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- Desktop Products Indicator End -->
+            {% if page.video %}
+            <a class="square btn btn-block btn-lg shadow-sm btn-light border-secondary border p-2" href="javascript:;" id="product-video-button" data-slide-to="{{data-slide-to}}" data-target="#productCarousel">
+                <i class="fa fa-fw fa-1x py-1 fa-play"></i>
+                <span class="d-block text-center">VIDEO</span>
+            </a>
+            {% endif %}
+        </div>
+        <div class="d-none d-lg-block col-11" style="">
+            <div id="productCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    <!-- Desktop Products Carousel Start -->
+                    {% assign carousel-number = 0 %}
+                    {% for image in site.static_files %}
+                    {% if image.path contains site.product_img_url %}
+                    {% if image.path contains product-slug%}
+                    <div class="carousel-item
+                        
+                        {% if carousel-number == 0 %}
+                          active
+                        {% endif%}
+                        ">
+                        <img src="{{ site.baseurl }}{{ image.path }}" alt="" class="d-block img-fluid w-100" />
+                    </div>
+                    {% assign carousel-number = carousel-number | plus:1 %}
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <!-- Desktop Products Carousel End -->
+                    {% if page.video %}
+                    {% for video in site.static_files %}
+                    {% if video.path contains site.product_vid_url %}
+                    {% if video.path contains product-slug %}
+                    <div class="carousel-item">
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <video src="{{ site.baseurl }}{{ video.path }}" class="embed-responsive-item" controls="controls"> Your browser does not support HTML5 video. </video>
+                        </div>
+                    </div>
+                    <script>
+                    const instance = basicLightbox.create(`<video src="{{ site.baseurl }}{{ video.path }}" controls="controls"></video>`)
+                    </script>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="d-block d-lg-none col-12 m-0 p-0">
+            <div id="productCarouselMobile" class="d-block mx-auto">
+                <!-- Mobile Products Carousel Start -->
+                {% for image in site.static_files %}
+                {% if image.path contains site.product_img_url %}
+                {% if image.path contains product-slug%}
+                <div class="rectangle" style="background-image: url('{{ site.baseurl }}{{ image.path }}')"></div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                <!-- Mobile Products Carousel End -->
+            </div>
+        </div>
+        {% if page.video %}
+        {% for video in site.static_files %}
+        {% if video.path contains site.product_vid_url %}
+        {% if video.path contains product-slug %}
+        <div class="product-block col-12 d-lg-none p-0">
+            <a class="btn btn-block btn-light py-2" id="mobile-video-button" onclick="instance.show()" href="javascript:;"><i class="fa fa-play fa-fw"></i>&nbsp;VIDEO </a>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>

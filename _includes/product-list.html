@@ -1,0 +1,50 @@
+<div id="product-lists" class="pb-5 pt-4">
+    <div class="container">
+      <div class="row">
+            {% assign products = site.products | reverse | where:"feature","false" %}
+            {% assign features = site.products | where:"feature","true" %}
+            {% for product in features %}
+            <div class="product-list col-6 p-2 featured border-bottom">
+              <a href="{{product.title | slugify}}.html">
+                {% if product.img-source == 'google'%}
+                <div class="square" style="background-image: url('{{product.images[0]}}')"></div>
+                {% else if%}
+                <div class="square" style="background-image: url('assets/products/img/{{product.title | slugify}}/1.jpg')"></div>
+                {% endif %}
+                {% if product.badge %}
+                <span class="badge">{{product.badge}}</span>
+                {% endif %}
+    
+                <h6 class="product-name mb-1 mt-2">{{product.nama}}</h6>  
+                <p class="product-price">Rp {{product.harga | thousands_separated:"."}} 
+                  {% if product.harga-before %}
+                  <span class="before d-inline-block">Rp {{product.harga-before | thousands_separated:"."}}</span>
+                  {% endif %}
+                </p>
+              </a>
+            </div>
+            {% endfor %}
+
+            {% for product in products"%}
+            <div class="product-list p-2 col-6 col-sm-4 col-md-4">
+                <a href="{{product.title | slugify}}.html">
+                    {% if product.img-source == 'google'%}
+                    <div class="square" style="background-image: url('{{product.images[0]}}')"></div>
+                    {% else if%}
+                    <div class="square" style="background-image: url('assets/products/img/{{product.title | slugify}}/1.jpg')"></div>
+                    {% endif %}
+                    {% if product.badge %}
+                    <span class="badge">{{product.badge}}</span>
+                    {% endif %}
+                    <h6 class="product-name mb-1 mt-2">{{product.nama}}</h6>
+                    <p class="product-price">Rp {{product.harga | thousands_separated:"."}}
+                        {% if product.harga-before %}
+                        <span class="before d-inline-block">Rp {{product.harga-before | thousands_separated:"."}}</span>
+                        {% endif %}
+                    </p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>

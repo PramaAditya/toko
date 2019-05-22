@@ -1,0 +1,70 @@
+{% assign products = site.products | where:"title",include.title %}
+
+{% if include.feature %}
+    {% for product in products %}
+    <div class="product-list p-2 featured {{include.col | default:'col'}} {{include.class}}">
+      <a href="{{product.title | slugify}}.html">
+        {% if product.img-source == 'google'%}
+        <img src="{{product.images[0]}}" alt="" class="img-fluid">
+        <!-- <div class="square" style="background-image: url('{{product.images[0]}}')"></div> -->
+        {% else if%}
+        <img src="assets/products/img/{{product.title | slugify}}/1.jpg" alt="" class="img-fluid">
+        <!-- <div class="square" style="background-image: url('assets/products/img/{{product.title | slugify}}/1.jpg')"></div> -->
+        {% endif %}
+        {% if product.badge %}
+        <span class="badge">{{product.badge}}</span>
+        {% endif %}
+
+        <h6 class="product-name mb-1 mt-2">{{product.nama}}</h6>  
+        <p class="product-price">Rp {{product.harga | thousands_separated:"."}} 
+          {% if product.harga-before %}
+          <span class="before d-inline-block">Rp {{product.harga-before | thousands_separated:"."}}</span>
+          {% endif %}
+        </p>
+      </a>
+    </div>
+    {% endfor %}
+
+{% else %}
+    {% for product in products %}
+    <div class="product-list p-2 {{include.col | default:'col-6 col-sm-4'}} {{include.class}}">
+        <a href="{{product.title | slugify}}.html">
+            {% if product.img-source == 'google'%}
+            <!-- <div class="square" data-bg="{{product.images[0]}}" style="background-image: url('{{product.images[0]}}');"></div> -->
+            <div class="square" data-bg="{{product.images[0]}}" data-bg-2="{{product.images[1]}}"></div>
+            {% else if%}
+            <!-- <div class="square" style="background-image: url('assets/products/img/{{product.title | slugify}}/1.jpg')"></div> -->
+             <div class="square" data-bg="assets/products/img/{{product.title | slugify}}/1.jpg" data-bg-2="assets/products/img/{{product.title | slugify}}/2.jpg"></div>
+            {% endif %}
+            {% if product.badge %}
+            <span class="badge">{{product.badge}}</span>
+            {% endif %}
+            <h6 class="product-name mb-1 mt-2">{{product.nama}}</h6>
+            <p class="product-price">Rp {{product.harga | thousands_separated:"."}}
+                {% if product.harga-before %}
+                <span class="before d-inline-block">Rp {{product.harga-before | thousands_separated:"."}}</span>
+                {% endif %}
+            </p>
+        </a>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<script>
+    $('.square').each(function(index, el) {
+        var bg = $(this).data('bg');
+        var bg_2 = $(this).data('bg-2');
+        var bg_url = "url('"+bg+"')";
+        $(this).css("background-image", bg_url);
+
+        if (bg_2){
+        var bg_url_2 = "url('"+bg_2+"')";
+
+        $(this).hover(function(){
+          $(this).css("background-image", bg_url_2);
+          }, function(){
+          $(this).css("background-image", bg_url);
+        });
+        }
+    });
+</script>
